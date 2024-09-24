@@ -1,0 +1,50 @@
+Un ejemplo de un sistema mal condicionado en 3x3 sería aquel en el que las filas de la matriz son casi linealmente dependientes, lo que lleva a que pequeñas variaciones en los coeficientes o en los valores de los términos independientes resulten en grandes cambios en las soluciones.
+
+Un ejemplo de un sistema mal condicionado en 3x3 es el siguiente:
+
+𝑥+2𝑦+3𝑧=6
+1.0001𝑥+2𝑦+3𝑧=6
+𝑥+2.0001𝑦+3𝑧=6
+
+Observaciones:
+Las ecuaciones son muy similares entre sí, con diferencias muy pequeñas en los coeficientes (1.0001 en lugar de 1, 2.0001 en lugar de 2).
+Este sistema está casi mal condicionado porque las ecuaciones son casi dependientes entre sí. Un pequeño cambio en los coeficientes cambiará drásticamente la solución.
+Resolviendo este sistema gráficamente:
+Aunque graficar un sistema de tres variables en 2D es difícil, podemos analizar la estabilidad numérica y resolver el sistema. Aquí está un código en Octave para resolver el sistema y ver la solución:
+
+octave
+Copiar código
+% Definir la matriz A y el vector b
+A = [1 2 3; 1.0001 2 3; 1 2.0001 3];
+b = [6; 6; 6];
+
+% Resolver el sistema
+sol = A\b;
+
+% Mostrar la solución
+disp('La solución del sistema es:');
+disp(sol);
+
+% Verificar la condición de la matriz
+cond_A = cond(A);
+disp('El número de condición de la matriz A es:');
+disp(cond_A);
+Número de condición:
+El número de condición (condición numérica) de la matriz nos dará una idea de cuán mal condicionada está. 
+Si el número de condición es muy alto (cercano a 10^5 o más), entonces el sistema es altamente inestable.
+
+Este sistema refleja un problema mal condicionado porque la matriz tiene filas muy similares entre sí, 
+lo que provoca que pequeños errores o variaciones en los datos resulten en grandes cambios en las soluciones.
+
+Ejemplo de cómo una pequeña variación afecta el sistema:
+Imagina que el coeficiente 
+𝑥
+x en la segunda ecuación cambia ligeramente de 
+1.0001 a 1
+1 debido a un error de redondeo. Esto haría que la segunda ecuación sea idéntica a la primera,
+lo que resultaría en que el sistema sea dependiente, es decir, que tenga infinitas soluciones o que 
+no tenga solución en absoluto.
+
+Esta es la razón principal por la que el sistema es mal condicionado: 
+las ecuaciones están tan cerca de ser dependientes que cualquier pequeño error en
+los cálculos provoca grandes variaciones en las soluciones.
